@@ -4,8 +4,15 @@ import {
 } from "@remix-run/dev";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import devServer, { defaultOptions } from "@hono/vite-dev-server";
+import adapter from "@hono/vite-dev-server/cloudflare";
 
 export default defineConfig({
+  ssr: {
+    resolve: {
+      externalConditions: ["workerd", "worker"],
+    },
+  },
   plugins: [
     remixCloudflareDevProxy(),
     remix({
@@ -14,6 +21,12 @@ export default defineConfig({
         v3_relativeSplatPath: true,
         v3_throwAbortReason: true,
       },
+    }),
+    devServer({
+      adapter,
+      entry: "server.ts",
+      exclude: [...defaultOptions.exclude, "/assets/**", "/app/**"],
+      injectClientScript: false,
     }),
     tsconfigPaths(),
   ],
