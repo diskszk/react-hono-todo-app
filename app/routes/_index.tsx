@@ -1,5 +1,6 @@
-import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
+import type { MetaFunction } from "@remix-run/cloudflare";
 import { useLoaderData, json } from "@remix-run/react";
+import { getTodos } from "~/api";
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,11 +12,8 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader = async ({ context }: LoaderFunctionArgs) => {
-  const host = context.cloudflare.env.API_HOST;
-
-  const response = await fetch(`${host}/api/hello`);
-  const data = (await response.json()) as { message: string };
+export const loader = async () => {
+  const data = await getTodos();
   return json({ data });
 };
 
@@ -25,7 +23,9 @@ export default function Index() {
   return (
     <div className="font-sans p-4">
       <h1 className="text-3xl">Welcome to Remix on Cloudflare</h1>
-      {data ? <p>{data.message}</p> : <p>loading...</p>}
+      <ul>
+        {data && data.map((todo) => <li key={todo.id}>{todo.content}</li>)}
+      </ul>
     </div>
   );
 }

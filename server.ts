@@ -3,15 +3,15 @@ import { Hono } from "hono";
 import { poweredBy } from "hono/powered-by";
 import { staticAssets } from "remix-hono/cloudflare";
 import { remix } from "remix-hono/handler";
+import { todos } from "api";
 
 const app = new Hono();
 
 let handler: RequestHandler | undefined;
 app.use(poweredBy());
 
-app.get("/api/hello", (c) => {
-  return c.json({ message: "🔥" });
-});
+app.route("/api/todos", todos);
+
 app.use(
   async (c, next) => {
     if (process.env.NODE_ENV !== "development" || import.meta.env.PROD) {
