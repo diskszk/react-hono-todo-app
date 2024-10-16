@@ -1,7 +1,14 @@
 export class Todo {
   constructor(
-    readonly id: string,
-    readonly content: string,
-    readonly done: boolean
+    readonly todoId: string,
+    readonly title: string,
+    readonly done: boolean,
+    readonly due: string,
+    readonly created_at: string
   ) {}
 }
+
+export type CreateTodoMutation = {
+  title: string;
+  due: string;
+};

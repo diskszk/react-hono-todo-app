@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input {
+  outline: solid;
+}
+a:link {
+  color: #0000ee;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #551a8b;
+  text-decoration: underline;
+}
+
+a:hover {
+}
+
+a:active {
+  color: #ff0000;
+  text-decoration: underline;
+}

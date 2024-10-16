@@ -1,1 +1,1 @@
-export * from "./getTodos";
+export * from "./todos";

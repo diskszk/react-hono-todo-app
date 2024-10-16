@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS todos;
+CREATE TABLE IF NOT EXISTS todos (
+  todoId INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT,
+  done TEXT CHECK (done in ('TRUE', 'FALSE')) DEFAULT 'FALSE',
+  due TEXT,
+  created_at TEXT DEFAULT CURRENT_TIMESTAMP
+);
+
+
+INSERT INTO todos (title, due) VALUES ('トイレットペーパーを買う', '2024-08-20 14:30:00');
